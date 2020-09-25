@@ -1,0 +1,28 @@
+##Variables
+  SEX = m/f #The sex of child measured#
+  MEASURE = h/l #Whether the child is measured lying down or standing up#
+  WEIGHT = #Weight of the child measured in kilograms (±0.1kg)#
+  HEIGHT = #Height of the child measured in centimeters (±0.1cm)#
+##Code for flagging SAM in Excel
+  WHZ_Neg_SAM = 
+    if(
+      ${MEASURE}='h' or (${MEASURE}='' and ${HEIGHT}>=87), 
+      if(
+        selected(${SEX},'m'),
+       -0.00009774144*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}
+       +0.005953728971*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}-0.14330096663*${WEIGHT}*${WEIGHT}*${WEIGHT}
+       +1.55136122061*${WEIGHT}*${WEIGHT}-1.52953254298*${WEIGHT}+42.7850571349
+       ,0.00022196522*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}
+       -0.0121357846*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}+0.25739197020*${WEIGHT}*${WEIGHT}*${WEIGHT}
+       -2.8252047192 *${WEIGHT}*${WEIGHT}+21.99331417*${WEIGHT}-4.3912480909
+       ),
+    if(
+      selected(${SEX},'m'),
+      0.000995821*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}
+      -0.041179737*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}+0.622839074*${WEIGHT}*${WEIGHT}*${WEIGHT}
+      -4.192765025*${WEIGHT}*${WEIGHT}+17.49551065*${WEIGHT}+23.63868321
+      ,0.000754341*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}-0.0299748*${WEIGHT}*${WEIGHT}*${WEIGHT}*${WEIGHT}
+      +0.4284523*${WEIGHT}*${WEIGHT}*${WEIGHT}-2.7036671*${WEIGHT}*${WEIGHT}+13.0452680*${WEIGHT}+27.9253576
+      )
+    )
+  
